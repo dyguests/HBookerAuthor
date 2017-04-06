@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HBookerAuthor</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="login">Login</string>
+    <string name="hint_email">Please Enter Email</string>
+    <string name="hint_password">Please Enter Password</string>
+</resources>
