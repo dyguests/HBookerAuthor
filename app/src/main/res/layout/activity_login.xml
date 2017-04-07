@@ -38,7 +38,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/hint_email"
-                    android:inputType="textPersonName"/>
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -51,7 +52,9 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/hint_password"
-                    android:inputType="textPersonName"/>
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"/>
             </android.support.design.widget.TextInputLayout>
 
             <Button
