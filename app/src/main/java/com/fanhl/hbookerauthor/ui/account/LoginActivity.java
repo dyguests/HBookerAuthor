@@ -4,21 +4,17 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
 
-import com.fanhl.hbookerauthor.App;
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.common.Local;
 import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
 import com.fanhl.hbookerauthor.util.Log;
 
-import java.util.Set;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Headers;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LoginActivity extends BaseActivity {
     public static final String TAG = LoginActivity.class.getSimpleName();
@@ -79,17 +75,17 @@ public class LoginActivity extends BaseActivity {
                 .login(loginForm)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response>() {
+                .subscribe(new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response response) {
-                        Headers headers = response.headers();
-                        Set<String> names = headers.names();
-                        Log.d(TAG, "names:" + names);
+                    public void onNext(ResponseBody response) {
+//                        Headers headers = response.headers();
+//                        Set<String> names = headers.names();
+//                        Log.d(TAG, "names:" + names);
                     }
 
                     @Override
@@ -100,12 +96,37 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onComplete() {
                         loginBtn.setEnabled(true);
+                        getViewList();
                     }
                 });
     }
 
-    private App getApp() {
-        return (App) getApplication();
+    private void getViewList() {
+        getApp().getClient().getBookService()
+                .getView_list()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        Log.d(TAG, "responseBody:" + responseBody);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "getView_list:", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private interface CheckFormCallback {

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.fanhl.hbookerauthor.common.Constant;
 import com.fanhl.hbookerauthor.io.rest.service.AccountService;
+import com.fanhl.hbookerauthor.io.rest.service.BookService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,6 +24,7 @@ public class HBookerClient {
     private final Retrofit retrofit;
 
     private AccountService accountService;
+    private BookService bookService;
 
     public HBookerClient(Context context) {
         retrofit = new Retrofit.Builder()
@@ -79,5 +81,12 @@ public class HBookerClient {
             accountService = retrofit.create(AccountService.class);
         }
         return accountService;
+    }
+
+    public BookService getBookService() {
+        if (bookService == null) {
+            bookService = retrofit.create(BookService.class);
+        }
+        return bookService;
     }
 }

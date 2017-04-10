@@ -3,9 +3,8 @@ package com.fanhl.hbookerauthor.io.rest.service;
 import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
 
 import io.reactivex.Observable;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
@@ -13,7 +12,7 @@ import retrofit2.http.POST;
  */
 public interface AccountService {
 
-    @FormUrlEncoded
+//    @FormUrlEncoded
     @POST("/login/doLogin/")
-    Observable<Response> login(@Body LoginForm loginForm);
+    Observable<ResponseBody> login(@Body LoginForm loginForm);
 }
