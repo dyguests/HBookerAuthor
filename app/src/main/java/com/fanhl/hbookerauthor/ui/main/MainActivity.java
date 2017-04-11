@@ -7,12 +7,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.fanhl.hbookerauthor.R;
+import com.fanhl.hbookerauthor.ui.common.BaseActivity;
 import com.fanhl.hbookerauthor.util.BottomNavigationAttachViewPagerHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private BottomNavigationView navigation;

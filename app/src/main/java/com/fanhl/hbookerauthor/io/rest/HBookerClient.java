@@ -34,8 +34,8 @@ public class HBookerClient {
         retrofit = new Retrofit.Builder()
                 .client(getOkHttpClient())
                 .baseUrl(Constant.HTTP_SERVER_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(getConverterFactory())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class HBookerClient {
                     //本拦截器用于加headers
                     Request request = chain.request();
                     request = request.newBuilder()
-                            .addHeader("cookie", RxSP.getStringDefaultEmpty(RxSP.KEY_TOKEN).get())
+                            .addHeader("Cookie", RxSP.getToken())
 //                            .addHeader("User-Agent", "FIXME User-Agent")// FIXME: 2017/3/17
                             .build();
                     return chain.proceed(request);
@@ -55,11 +55,11 @@ public class HBookerClient {
                     Request request = chain.request();
                     Response response = chain.proceed(request);
 
-                    //获取cookie
+//                    //获取cookie
                     if (AccountService.LOGIN_DO_LOGIN.equals(request.url().encodedPath())) {
                         String token = response.header("Set-Cookie");
                         Log.d(TAG, "token:" + token);
-                        RxSP.getString(RxSP.KEY_TOKEN).set(token);
+                        RxSP.setToken(token);
                     }
 
                     return response;

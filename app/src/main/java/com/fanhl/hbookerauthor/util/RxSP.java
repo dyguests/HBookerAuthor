@@ -20,6 +20,8 @@ public class RxSP {
 
     private static RxSharedPreferences rxPreferences;
 
+    private static String token;
+
     public static void init(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         rxPreferences = RxSharedPreferences.create(preferences);
@@ -34,5 +36,18 @@ public class RxSP {
     @NonNull
     public static Preference<String> getStringDefaultEmpty(String key) {
         return rxPreferences.getString(key, STRING_EMPTY);
+    }
+
+    public static void setToken(String token) {
+        getString(RxSP.KEY_TOKEN).set(token);
+        RxSP.token = token;
+    }
+
+    public static String getToken() {
+        if (token == null) {
+            return "";
+//            token = getStringDefaultEmpty(RxSP.KEY_TOKEN).get();
+        }
+        return token;
     }
 }
