@@ -6,11 +6,13 @@ import android.support.annotation.NonNull;
 import com.fanhl.hbookerauthor.common.Constant;
 import com.fanhl.hbookerauthor.io.rest.service.AccountService;
 import com.fanhl.hbookerauthor.io.rest.service.BookService;
+import com.fanhl.hbookerauthor.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -20,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by fanhl on 2017/4/6.
  */
 public class HBookerClient {
+    public static final String TAG = HBookerClient.class.getSimpleName();
 
     private final Retrofit retrofit;
 
@@ -47,6 +50,18 @@ public class HBookerClient {
                             .addHeader("User-Agent", "FIXME User-Agent")// FIXME: 2017/3/17
                             .build();
                     return chain.proceed(request);
+                })
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    Response response = chain.proceed(request);
+
+                    //获取cookie
+                    if (AccountService.LOGIN_DO_LOGIN.equals(request.url().encodedPath())) {
+                        String token = response.header("Set-Cookie");
+                        Log.d(TAG, "token:" + token);
+                    }
+
+                    return response;
                 });
 
 //        //add fanhl 2017/1/11 超过时间设置
