@@ -7,6 +7,7 @@ import com.fanhl.hbookerauthor.common.Constant;
 import com.fanhl.hbookerauthor.io.rest.service.AccountService;
 import com.fanhl.hbookerauthor.io.rest.service.BookService;
 import com.fanhl.hbookerauthor.util.Log;
+import com.fanhl.hbookerauthor.util.RxSP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -46,7 +47,7 @@ public class HBookerClient {
                     Request request = chain.request();
                     request = request.newBuilder()
 //                            .addHeader("cookie", "ticket=" + "FXIME ticket")// FIXME: 2017/3/17
-                            .addHeader("cookie", "hbooker_author_session=388m85a67vuggph7m55pf4rr0t00vim9")// FIXME: 2017/3/17
+                            .addHeader("cookie", RxSP.getStringDefaultEmpty(RxSP.KEY_TOKEN).get())
                             .addHeader("User-Agent", "FIXME User-Agent")// FIXME: 2017/3/17
                             .build();
                     return chain.proceed(request);
@@ -59,6 +60,7 @@ public class HBookerClient {
                     if (AccountService.LOGIN_DO_LOGIN.equals(request.url().encodedPath())) {
                         String token = response.header("Set-Cookie");
                         Log.d(TAG, "token:" + token);
+                        RxSP.getString(RxSP.KEY_TOKEN).set(token);
                     }
 
                     return response;
