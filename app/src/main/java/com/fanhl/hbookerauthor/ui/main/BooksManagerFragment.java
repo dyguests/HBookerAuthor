@@ -48,15 +48,22 @@ public class BooksManagerFragment extends Fragment {
     private void assignViews(View view) {
         this.swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         this.recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
+        swipeRefreshLayout.setOnRefreshListener(this::refreshData);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void initData() {
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new BooksManagerAdapter();
         recyclerView.setAdapter(adapter);
     }
 
     private void refreshData() {
+        if (swipeRefreshLayout.isRefreshing()) {
+            return;
+        }
+        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+
         new AsyncTask<Object, Object, List<Book>>() {
             @Override
             protected List<Book> doInBackground(Object... params) {
@@ -75,6 +82,7 @@ public class BooksManagerFragment extends Fragment {
 
             @Override
             protected void onPostExecute(List<Book> books) {
+                swipeRefreshLayout.setRefreshing(false);
                 adapter.replaceItems(books);
             }
         }.execute();
