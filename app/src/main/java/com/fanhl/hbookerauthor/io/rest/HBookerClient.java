@@ -42,7 +42,8 @@ public class HBookerClient {
                     //本拦截器用于加headers
                     Request request = chain.request();
                     request = request.newBuilder()
-                            .addHeader("cookie", "ticket=" + "FXIME ticket")// FIXME: 2017/3/17
+//                            .addHeader("cookie", "ticket=" + "FXIME ticket")// FIXME: 2017/3/17
+                            .addHeader("cookie", "hbooker_author_session=388m85a67vuggph7m55pf4rr0t00vim9")// FIXME: 2017/3/17
                             .addHeader("User-Agent", "FIXME User-Agent")// FIXME: 2017/3/17
                             .build();
                     return chain.proceed(request);

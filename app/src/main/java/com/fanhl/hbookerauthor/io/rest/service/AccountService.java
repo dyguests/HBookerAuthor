@@ -12,7 +12,11 @@ import retrofit2.http.POST;
  */
 public interface AccountService {
 
-//    @FormUrlEncoded
+    /**
+     * @param loginForm
+     * @return Cookie:
+     * hbooker_author_session=XXXufrm933en8ho89m2bch9hnl7n689b
+     */
     @POST("/login/doLogin/")
     Observable<ResponseBody> login(@Body LoginForm loginForm);
 }
