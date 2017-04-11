@@ -36,7 +36,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-
+                    case 0:
+                        return BooksManagerFragment.newInstance();
+                    case 1:
+                        return BooksManagerFragment.newInstance();
+                    case 2:
+                        return BooksManagerFragment.newInstance();
+                    case 3:
+                        return BooksManagerFragment.newInstance();
+                    case 4:
+                        return BooksManagerFragment.newInstance();
                     default:
                         return null;
                 }
@@ -47,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 return 5;
             }
         });
+        viewPager.setOffscreenPageLimit(4);
 
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
