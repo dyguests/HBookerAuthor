@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.ui.common.BaseFragment;
+import com.fanhl.hbookerauthor.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import okhttp3.ResponseBody;
  * Created by fanhl on 2017/4/11.
  */
 public class BooksManagerFragment extends BaseFragment {
+    public static final String TAG = BooksManagerFragment.class.getSimpleName();
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
@@ -105,17 +107,17 @@ public class BooksManagerFragment extends BaseFragment {
 
                     @Override
                     public void onNext(ResponseBody responseBody) {
-
+                        Log.d(TAG, "responseBody:" + responseBody);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
     }
