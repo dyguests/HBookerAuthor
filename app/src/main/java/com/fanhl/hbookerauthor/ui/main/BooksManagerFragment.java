@@ -26,6 +26,12 @@ public class BooksManagerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_books_manager, container, false);
+        View view = inflater.inflate(R.layout.fragment_books_manager, container, false);
+        refreshData();
+        return view;
+    }
+
+    private void refreshData() {
+        
     }
 }
