@@ -3,7 +3,6 @@ package com.fanhl.hbookerauthor.ui.main;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -13,14 +12,21 @@ import android.view.ViewGroup;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
+import com.fanhl.hbookerauthor.ui.common.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+
 /**
  * Created by fanhl on 2017/4/11.
  */
-public class BooksManagerFragment extends Fragment {
+public class BooksManagerFragment extends BaseFragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
@@ -86,5 +92,32 @@ public class BooksManagerFragment extends Fragment {
                 adapter.replaceItems(books);
             }
         }.execute();
+
+        getApp().getClient().getBookService()
+                .getView_list()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
+
 }

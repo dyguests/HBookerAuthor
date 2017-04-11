@@ -34,8 +34,8 @@ public class HBookerClient {
         retrofit = new Retrofit.Builder()
                 .client(getOkHttpClient())
                 .baseUrl(Constant.HTTP_SERVER_URL)
-                .addConverterFactory(getConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(getConverterFactory())
                 .build();
     }
 
