@@ -4,6 +4,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 
 /**
+ * BottomNavigationView Attach ViewPager Helper
+ *
  * Created by fanhl on 2017/4/11.
  */
 public class BottomNavigationAttachViewPagerHelper {

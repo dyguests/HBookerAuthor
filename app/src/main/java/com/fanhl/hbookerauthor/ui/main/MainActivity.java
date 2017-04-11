@@ -59,22 +59,6 @@ public class MainActivity extends AppCompatActivity {
         });
         viewPager.setOffscreenPageLimit(4);
 
-        navigation.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    return true;
-                case R.id.navigation_books:
-                    return true;
-                case R.id.navigation_interaction:
-                    return true;
-                case R.id.navigation_wallet:
-                    return true;
-                case R.id.navigation_author:
-                    return true;
-            }
-            return false;
-        });
-
         BottomNavigationAttachViewPagerHelper.setup(navigation, viewPager);
     }
 
