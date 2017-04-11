@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.fanhl.hbookerauthor.R;
+import com.fanhl.hbookerauthor.util.BottomNavigationAttachViewPagerHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        BottomNavigationAttachViewPagerHelper.setup(navigation, viewPager);
     }
 
 }
