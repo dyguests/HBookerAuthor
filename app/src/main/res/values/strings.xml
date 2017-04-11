@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">HBookerAuthor</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">首页</string>
+    <string name="title_books">作品管理</string>
+    <string name="title_interaction">读者互动</string>
+    <string name="title_wallet">作者钱包</string>
+    <string name="title_author">作者信息</string>
     <string name="login">Login</string>
     <string name="hint_email">Please Enter Email</string>
     <string name="hint_password">Please Enter Password</string>

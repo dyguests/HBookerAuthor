@@ -8,6 +8,7 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.common.Local;
 import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
+import com.fanhl.hbookerauthor.ui.main.MainActivity;
 import com.fanhl.hbookerauthor.util.Log;
 
 import io.reactivex.Observer;
@@ -83,10 +84,7 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(ResponseBody response) {
-
-//                        Headers headers = response.headers();
-//                        Set<String> names = headers.names();
-//                        Log.d(TAG, "names:" + names);
+                        MainActivity.launch(LoginActivity.this);
                     }
 
                     @Override
@@ -97,11 +95,12 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onComplete() {
                         loginBtn.setEnabled(true);
-                        getViewList();
+//                        getViewList();
                     }
                 });
     }
 
+    @Deprecated
     private void getViewList() {
         getApp().getClient().getBookService()
                 .getView_list()
