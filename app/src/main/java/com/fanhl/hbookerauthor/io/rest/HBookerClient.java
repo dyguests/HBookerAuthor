@@ -32,14 +32,14 @@ public class HBookerClient {
 
     public HBookerClient(Context context) {
         retrofit = new Retrofit.Builder()
-                .client(getOkHttpClient())
+                .client(getOkHttpClient(context))
                 .baseUrl(Constant.HTTP_SERVER_URL)
                 .addConverterFactory(getConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
-    private OkHttpClient getOkHttpClient() {
+    private OkHttpClient getOkHttpClient(Context context) {
         //okhttp
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addInterceptor(chain -> {
@@ -47,8 +47,9 @@ public class HBookerClient {
                     Request request = chain.request();
                     request = request.newBuilder()
                             .addHeader("Cookie", RxSP.getToken())
-//                            .addHeader("User-Agent", "FIXME User-Agent")// FIXME: 2017/3/17
+//                            .addHeader("Cookie", "hbooker_author_session=31scascajav6nlbrkh2gk8nc6gnbetjo")
                             .build();
+                    Log.d(TAG, "request Cookie:" + request.header("Cookie"));
                     return chain.proceed(request);
                 })
                 .addInterceptor(chain -> {
@@ -56,14 +57,29 @@ public class HBookerClient {
                     Response response = chain.proceed(request);
 
 //                    //获取cookie
-                    if (AccountService.LOGIN_DO_LOGIN.equals(request.url().encodedPath())) {
-                        String token = response.header("Set-Cookie");
-                        Log.d(TAG, "token:" + token);
-                        RxSP.setToken(token);
-                    }
+//                    if (AccountService.LOGIN_DO_LOGIN.equals(request.url().encodedPath())) {
+                    String cookie = response.header("Set-Cookie");
+                    Log.d(TAG, "response Set-Cookie:" + cookie);
+
+//                        String token = "";
+//                        if (cookie != null) {
+//                            String[] parts = cookie.split(";");
+//                            for (String part : parts) {
+//                                if (part.contains("hbooker_author_session")) {
+//                                    token = part;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        RxSP.setToken(token);
+                    RxSP.setToken(cookie);
+//                    }
 
                     return response;
-                });
+                })
+//                .addInterceptor(new ReceivedCookiesInterceptor(context))
+//                .addInterceptor(new AddCookiesInterceptor(context))
+                ;
 
 //        //add fanhl 2017/1/11 超过时间设置
 //        builder
