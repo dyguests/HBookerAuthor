@@ -46,10 +46,10 @@ public class HBookerClient {
                     //本拦截器用于加headers
                     Request request = chain.request();
                     request = request.newBuilder()
-                            .addHeader("Cookie", RxSP.getToken())
+                            .addHeader("cookie", RxSP.getToken())
 //                            .addHeader("Cookie", "hbooker_author_session=31scascajav6nlbrkh2gk8nc6gnbetjo")
                             .build();
-                    Log.d(TAG, "request Cookie:" + request.header("Cookie"));
+                    Log.d(TAG, "request Cookie:" + request.header("cookie"));
                     return chain.proceed(request);
                 })
                 .addInterceptor(chain -> {
