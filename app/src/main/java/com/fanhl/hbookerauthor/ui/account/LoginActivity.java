@@ -1,5 +1,7 @@
 package com.fanhl.hbookerauthor.ui.account;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
@@ -8,7 +10,6 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.common.Local;
 import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
-import com.fanhl.hbookerauthor.ui.main.MainActivity;
 import com.fanhl.hbookerauthor.util.Log;
 
 import io.reactivex.Observer;
@@ -23,6 +24,10 @@ public class LoginActivity extends BaseActivity {
     private TextInputEditText emailEt;
     private TextInputEditText passwordEt;
     private Button loginBtn;
+
+    public static void launch(Context context) {
+        context.startActivity(new Intent(context, LoginActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +89,8 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(ResponseBody response) {
-                        MainActivity.launch(LoginActivity.this);
+//                        MainActivity.launch(LoginActivity.this);
+                        finish();
                     }
 
                     @Override

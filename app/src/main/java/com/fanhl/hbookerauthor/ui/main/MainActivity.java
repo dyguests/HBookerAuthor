@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
                     case 3:
                         return BooksManagerFragment.newInstance();
                     case 4:
-                        return BooksManagerFragment.newInstance();
+                        return AuthorFragment.newInstance();
                     default:
                         return null;
                 }
