@@ -7,7 +7,6 @@ import com.fanhl.hbookerauthor.common.Constant;
 import com.fanhl.hbookerauthor.io.rest.service.AccountService;
 import com.fanhl.hbookerauthor.io.rest.service.BookService;
 import com.fanhl.hbookerauthor.util.Log;
-import com.fanhl.hbookerauthor.util.RxSP;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -46,7 +45,8 @@ public class HBookerClient {
                     //本拦截器用于加headers
                     Request request = chain.request();
                     request = request.newBuilder()
-                            .addHeader("cookie", RxSP.getToken())
+//                            .addHeader("cookie", RxSP.getToken())
+                            .addHeader("cookie", CookieHelper.get())
                             .build();
                     Log.d(TAG, "request Cookie:" + request.header("cookie"));
                     return chain.proceed(request);
@@ -57,10 +57,9 @@ public class HBookerClient {
 
                     String cookie = response.header("Set-Cookie");
                     Log.d(TAG, "response Set-Cookie:" + cookie);
+                    CookieHelper.set(cookie);
 
-                    RxSP.setToken(cookie);
-//                    }
-
+//                    RxSP.setToken(cookie);
                     return response;
                 });
 
