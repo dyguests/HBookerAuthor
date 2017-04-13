@@ -10,6 +10,12 @@ import com.fanhl.hbookerauthor.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -28,6 +34,8 @@ public class HBookerClient {
 
     private AccountService accountService;
     private BookService bookService;
+
+    List<Cookie> cookies = new ArrayList<>();
 
     public HBookerClient(Context context) {
         retrofit = new Retrofit.Builder()
@@ -62,7 +70,17 @@ public class HBookerClient {
 //                    RxSP.setToken(cookie);
                     return response;
                 });
+        builder.cookieJar(new CookieJar() {
+            @Override
+            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                HBookerClient.this.cookies.addAll(cookies);
+            }
 
+            @Override
+            public List<Cookie> loadForRequest(HttpUrl url) {
+                return cookies;
+            }
+        });
         return builder.build();
     }
 
