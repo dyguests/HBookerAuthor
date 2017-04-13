@@ -47,7 +47,6 @@ public class HBookerClient {
                     Request request = chain.request();
                     request = request.newBuilder()
                             .addHeader("cookie", RxSP.getToken())
-//                            .addHeader("Cookie", "hbooker_author_session=31scascajav6nlbrkh2gk8nc6gnbetjo")
                             .build();
                     Log.d(TAG, "request Cookie:" + request.header("cookie"));
                     return chain.proceed(request);
@@ -56,38 +55,14 @@ public class HBookerClient {
                     Request request = chain.request();
                     Response response = chain.proceed(request);
 
-//                    //获取cookie
-//                    if (AccountService.LOGIN_DO_LOGIN.equals(request.url().encodedPath())) {
                     String cookie = response.header("Set-Cookie");
                     Log.d(TAG, "response Set-Cookie:" + cookie);
 
-//                        String token = "";
-//                        if (cookie != null) {
-//                            String[] parts = cookie.split(";");
-//                            for (String part : parts) {
-//                                if (part.contains("hbooker_author_session")) {
-//                                    token = part;
-//                                    break;
-//                                }
-//                            }
-//                        }
-//                        RxSP.setToken(token);
                     RxSP.setToken(cookie);
 //                    }
 
                     return response;
-                })
-//                .addInterceptor(new ReceivedCookiesInterceptor(context))
-//                .addInterceptor(new AddCookiesInterceptor(context))
-                ;
-
-//        //add fanhl 2017/1/11 超过时间设置
-//        builder
-//                .readTimeout(Constant.TIMEOUT_TIME, TimeUnit.SECONDS)
-//                .connectTimeout(Constant.TIMEOUT_TIME, TimeUnit.SECONDS);
-
-//        //请求失败后禁止retry
-//        builder.retryOnConnectionFailure(false);
+                });
 
         return builder.build();
     }
