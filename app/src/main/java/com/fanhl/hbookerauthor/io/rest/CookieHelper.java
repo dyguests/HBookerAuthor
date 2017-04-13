@@ -1,12 +1,13 @@
 package com.fanhl.hbookerauthor.io.rest;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by fanhl on 2017/4/13.
  */
 
-class CookieHelper {
+public class CookieHelper {
 
     private static HashMap<String, String> cookieMap;
 
@@ -35,5 +36,14 @@ class CookieHelper {
             sb.append(key).append("=").append(value).append("; ");
         });
         return sb.toString();
+    }
+
+    public static void save(Map<String, String> cookies) {
+        cookieMap.putAll(cookies);
+    }
+
+
+    public static Map<String, String> getCookie() {
+        return cookieMap;
     }
 }

@@ -8,10 +8,17 @@ import android.widget.Button;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.common.Local;
+import com.fanhl.hbookerauthor.io.rest.CookieHelper;
 import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
 import com.fanhl.hbookerauthor.util.Log;
 
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -77,6 +84,11 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(LoginForm loginForm) {
+        if (true) {
+            login2(loginForm);
+            return;
+        }
+
         getApp().getClient().getAccountService()
                 .login(loginForm)
                 .subscribeOn(Schedulers.io())
@@ -106,31 +118,46 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    @Deprecated
-    private void getViewList() {
-        getApp().getClient().getBookService()
-                .getView_list()
+    private void login2(LoginForm loginForm) {
+        Observable
+                .create((ObservableOnSubscribe<Document>) emitter -> {
+                    try {
+                        Connection.Response response = Jsoup.connect("http://author.hbooker.com/login/doLogin")
+                                .method(Connection.Method.POST)
+                                .data("email", loginForm.getEmail())
+                                .data("passwd", loginForm.getPassword())
+                                .execute();
+                        CookieHelper.save(response.cookies());
+                        Document document = response.parse();
+                        emitter.onNext(document);
+                        emitter.onComplete();
+                    } catch (Exception e1) {
+                        emitter.onError(e1);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
+                .subscribe(new Observer<Document>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-                        Log.d(TAG, "responseBody:" + responseBody);
+                    public void onNext(Document document) {
+                        Log.d(TAG, "document:" + document);
+                        finish();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "getView_list:", e);
+                        Log.e(TAG, "e:", e);
+                        loginBtn.setEnabled(true);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        loginBtn.setEnabled(true);
                     }
                 });
     }

@@ -14,12 +14,19 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.io.jsoup.parser.BooksParser;
 import com.fanhl.hbookerauthor.io.jsoup.response.BookListResponse;
+import com.fanhl.hbookerauthor.io.rest.CookieHelper;
 import com.fanhl.hbookerauthor.ui.common.BaseFragment;
 import com.fanhl.hbookerauthor.util.Log;
+
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -70,6 +77,11 @@ public class BooksManagerFragment extends BaseFragment {
     private void refreshData() {
         swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
 
+        if (true) {
+            refreshData2();
+            return;
+        }
+
         new AsyncTask<Object, Object, List<Book>>() {
             @Override
             protected List<Book> doInBackground(Object... params) {
@@ -111,6 +123,47 @@ public class BooksManagerFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+    }
+
+    private void refreshData2() {
+        Observable
+                .create((ObservableOnSubscribe<Document>) emitter -> {
+                    try {
+                        Connection.Response response = Jsoup.connect("http://author.hbooker.com/book_manage/view_list")
+                                .cookies(CookieHelper.getCookie())
+                                .execute();
+                        CookieHelper.save(response.cookies());
+                        Document document = response.parse();
+                        emitter.onNext(document);
+                        emitter.onComplete();
+                    } catch (Exception e1) {
+                        emitter.onError(e1);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Document>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Document document) {
+                        Log.d(TAG, "document:" + document);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "e:", e);
                         swipeRefreshLayout.setRefreshing(false);
                     }
 
