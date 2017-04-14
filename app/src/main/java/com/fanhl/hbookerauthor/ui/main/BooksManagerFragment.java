@@ -69,6 +69,12 @@ public class BooksManagerFragment extends BaseFragment {
     private void initData() {
         adapter = new BooksManagerAdapter();
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemLongClickListener((position, holder) -> {
+            Book data = (Book) ((BooksManagerAdapter.ViewHolder) holder).getData();
+            return true;
+        });
+        //http://www.hbooker.com/book/book_detail/{bookId}
     }
 
     private void refreshData() {

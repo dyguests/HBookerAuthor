@@ -41,6 +41,10 @@ class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Bo
             super.bind(data);
             Book book = (Book) data;
 
+            if (true) {
+                return;
+            }
+
             Picasso.with(coverImg.getContext())
                     .load(book.getCover())
                     .into(coverImg);
