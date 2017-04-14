@@ -114,7 +114,7 @@ public class BooksParser {
     }
 
     private static int getCollect(Element cover) {
-        String collectStr = cover.select("span").get(0).html();
+        String collectStr = cover.select("span.collect").get(0).html();
         return Integer.valueOf(collectStr.split(" ")[1]);
     }
 }

@@ -72,8 +72,6 @@ public class BooksManagerFragment extends BaseFragment {
     }
 
     private void refreshData() {
-        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
-
         Observable
                 .create((ObservableOnSubscribe<Document>) emitter -> {
                     try {
@@ -94,12 +92,13 @@ public class BooksManagerFragment extends BaseFragment {
                 .subscribe(new Observer<List<Book>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
                     }
 
                     @Override
-                    public void onNext(List<Book> document) {
-                        Log.d(TAG, "document:" + document);
+                    public void onNext(List<Book> books) {
+                        Log.d(TAG, "books:" + books);
+                        adapter.replaceItems(books);
                     }
 
                     @Override
