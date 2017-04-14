@@ -8,4 +8,5 @@
     <string name="login">Login</string>
     <string name="hint_email">Please Enter Email</string>
     <string name="hint_password">Please Enter Password</string>
+    <string name="hint_no_title">没找到标题</string>
 </resources>

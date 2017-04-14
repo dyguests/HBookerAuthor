@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
@@ -26,11 +27,13 @@ class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Bo
 
         private final LinearLayout container;
         private final ImageView coverImg;
+        private final TextView titleTv;
 
         public ViewHolder(View itemView) {
             super(itemView);
             container = ((LinearLayout) itemView.findViewById(R.id.container));
             coverImg = ((ImageView) itemView.findViewById(R.id.coverImg));
+            titleTv = ((TextView) itemView.findViewById(R.id.titleTv));
         }
 
         @Override
@@ -41,6 +44,7 @@ class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Bo
             Picasso.with(coverImg.getContext())
                     .load(book.getCover())
                     .into(coverImg);
+            titleTv.setText(book.getTitle());
         }
     }
 }
