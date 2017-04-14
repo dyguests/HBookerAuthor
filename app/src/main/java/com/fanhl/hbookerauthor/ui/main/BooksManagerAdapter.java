@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.ui.common.ListAdapter;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by fanhl on 2017/4/11.
@@ -40,6 +41,10 @@ class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Bo
         public void bind(Object data) {
             super.bind(data);
             Book book = (Book) data;
+
+            Picasso.with(coverImg.getContext())
+                    .load(book.getCover())
+                    .into(coverImg);
 
 //            // https://novel-cdn.kuangxiangit.com/images/default.jpg
 //            Picasso.with(coverImg.getContext())
