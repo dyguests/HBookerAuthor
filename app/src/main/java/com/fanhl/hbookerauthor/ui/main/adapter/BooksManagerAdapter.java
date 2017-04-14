@@ -1,4 +1,4 @@
-package com.fanhl.hbookerauthor.ui.main;
+package com.fanhl.hbookerauthor.ui.main.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
  * Created by fanhl on 2017/4/11.
  */
 
-class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Book> {
+public class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Book> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

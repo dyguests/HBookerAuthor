@@ -14,6 +14,8 @@ import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.io.jsoup.parser.BooksParser;
 import com.fanhl.hbookerauthor.io.rest.CookieHelper;
 import com.fanhl.hbookerauthor.ui.common.BaseFragment;
+import com.fanhl.hbookerauthor.ui.main.adapter.BooksManagerAdapter;
+import com.fanhl.hbookerauthor.ui.main.widget.BookOperationsDialogFragment;
 import com.fanhl.hbookerauthor.util.Log;
 
 import org.jsoup.Connection;
@@ -72,9 +74,9 @@ public class BooksManagerFragment extends BaseFragment {
 
         adapter.setOnItemLongClickListener((position, holder) -> {
             Book data = (Book) ((BooksManagerAdapter.ViewHolder) holder).getData();
+            BookOperationsDialogFragment.newInstance(data).show(getChildFragmentManager(),BookOperationsDialogFragment.TAG);
             return true;
         });
-        //http://www.hbooker.com/book/book_detail/{bookId}
     }
 
     private void refreshData() {
