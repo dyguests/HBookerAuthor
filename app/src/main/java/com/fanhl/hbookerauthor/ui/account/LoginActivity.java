@@ -11,6 +11,7 @@ import com.fanhl.hbookerauthor.common.Local;
 import com.fanhl.hbookerauthor.io.rest.CookieHelper;
 import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
+import com.fanhl.hbookerauthor.ui.main.MainActivity;
 import com.fanhl.hbookerauthor.util.Log;
 
 import org.jsoup.Connection;
@@ -110,7 +111,8 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onNext(Document document) {
                         Log.d(TAG, "document:" + document);
-                        finish();
+                        MainActivity.launch(LoginActivity.this);
+//                        finish();
                     }
 
                     @Override
