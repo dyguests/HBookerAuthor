@@ -1,6 +1,5 @@
 package com.fanhl.hbookerauthor.ui.main;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.io.jsoup.parser.BooksParser;
-import com.fanhl.hbookerauthor.io.jsoup.response.BookListResponse;
 import com.fanhl.hbookerauthor.io.rest.CookieHelper;
 import com.fanhl.hbookerauthor.ui.common.BaseFragment;
 import com.fanhl.hbookerauthor.util.Log;
@@ -22,7 +20,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -77,63 +74,6 @@ public class BooksManagerFragment extends BaseFragment {
     private void refreshData() {
         swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
 
-        if (true) {
-            refreshData2();
-            return;
-        }
-
-        new AsyncTask<Object, Object, List<Book>>() {
-            @Override
-            protected List<Book> doInBackground(Object... params) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                List<Book> list = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
-                    list.add(new Book());
-                }
-                return list;
-            }
-
-            @Override
-            protected void onPostExecute(List<Book> books) {
-                swipeRefreshLayout.setRefreshing(false);
-                adapter.replaceItems(books);
-            }
-        }.execute();
-//
-        getApp().getClient().getBookService()
-                .getView_list()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(BooksParser::view_list)
-                .subscribe(new Observer<BookListResponse>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(BookListResponse responseBody) {
-                        Log.d(TAG, "responseBody:" + responseBody);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
-    }
-
-    private void refreshData2() {
         Observable
                 .create((ObservableOnSubscribe<Document>) emitter -> {
                     try {
@@ -148,16 +88,17 @@ public class BooksManagerFragment extends BaseFragment {
                         emitter.onError(e1);
                     }
                 })
+                .map(BooksParser::view_list)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Document>() {
+                .subscribe(new Observer<List<Book>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Document document) {
+                    public void onNext(List<Book> document) {
                         Log.d(TAG, "document:" + document);
                     }
 

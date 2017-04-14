@@ -23,7 +23,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
 public class LoginActivity extends BaseActivity {
     public static final String TAG = LoginActivity.class.getSimpleName();
@@ -84,41 +83,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(LoginForm loginForm) {
-        if (true) {
-            login2(loginForm);
-            return;
-        }
-
-        getApp().getClient().getAccountService()
-                .login(loginForm)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseBody>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(ResponseBody response) {
-//                        MainActivity.launch(LoginActivity.this);
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        loginBtn.setEnabled(true);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        loginBtn.setEnabled(true);
-//                        getViewList();
-                    }
-                });
-    }
-
-    private void login2(LoginForm loginForm) {
         Observable
                 .create((ObservableOnSubscribe<Document>) emitter -> {
                     try {
@@ -131,8 +95,8 @@ public class LoginActivity extends BaseActivity {
                         Document document = response.parse();
                         emitter.onNext(document);
                         emitter.onComplete();
-                    } catch (Exception e1) {
-                        emitter.onError(e1);
+                    } catch (Exception e) {
+                        emitter.onError(e);
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -160,6 +124,7 @@ public class LoginActivity extends BaseActivity {
                         loginBtn.setEnabled(true);
                     }
                 });
+
     }
 
     private interface CheckFormCallback {

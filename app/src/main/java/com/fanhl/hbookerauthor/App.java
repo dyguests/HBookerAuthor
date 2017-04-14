@@ -2,7 +2,6 @@ package com.fanhl.hbookerauthor;
 
 import android.app.Application;
 
-import com.fanhl.hbookerauthor.io.rest.HBookerClient;
 import com.fanhl.hbookerauthor.util.RxSP;
 
 /**
@@ -10,7 +9,7 @@ import com.fanhl.hbookerauthor.util.RxSP;
  */
 
 public class App extends Application {
-    private HBookerClient client;
+//    private HBookerClient client;
 
     @Override
     public void onCreate() {
@@ -19,10 +18,10 @@ public class App extends Application {
         RxSP.init(this);
     }
 
-    public HBookerClient getClient() {
-        if (client == null) {
-            client = new HBookerClient(this);
-        }
-        return client;
-    }
+//    public HBookerClient getClient() {
+//        if (client == null) {
+//            client = new HBookerClient(this);
+//        }
+//        return client;
+//    }
 }
