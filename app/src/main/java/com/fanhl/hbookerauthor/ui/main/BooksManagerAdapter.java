@@ -31,10 +31,6 @@ class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Bo
             super(itemView);
             container = ((LinearLayout) itemView.findViewById(R.id.container));
             coverImg = ((ImageView) itemView.findViewById(R.id.coverImg));
-
-//            Palette.from(coverImg.getDrawingCache()).generate(palette -> {
-//                container.setBackgroundColor(palette.getLightVibrantSwatch().getRgb());
-//            });
         }
 
         @Override
@@ -45,32 +41,6 @@ class BooksManagerAdapter extends ListAdapter<BooksManagerAdapter.ViewHolder, Bo
             Picasso.with(coverImg.getContext())
                     .load(book.getCover())
                     .into(coverImg);
-
-//            // https://novel-cdn.kuangxiangit.com/images/default.jpg
-//            Picasso.with(coverImg.getContext())
-//                    .load("https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2971967025,2497343324&fm=80&w=179&h=119&img.JPEG")
-//                    .into(new Target() {
-//                        @Override
-//                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                            coverImg.setImageBitmap(bitmap);
-//                            Palette.from(bitmap).generate(palette -> {
-//                                if (palette.getVibrantSwatch() != null) {
-//                                    container.setBackgroundColor(palette.getVibrantSwatch().getRgb());
-//                                }
-//                            });
-//
-//                        }
-//
-//                        @Override
-//                        public void onBitmapFailed(Drawable errorDrawable) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-//
-//                        }
-//                    });
         }
     }
 }
