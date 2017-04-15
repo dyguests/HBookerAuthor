@@ -7,6 +7,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 
 /**
@@ -20,6 +22,26 @@ public abstract class BaseSerivce {
                 Connection.Response response = Jsoup.connect(Constant.BASE_URL + path)
                         .cookies(CookieHelper.getCookie())
                         .execute();
+                CookieHelper.save(response.cookies());
+                Document document = response.parse();
+                emitter.onNext(document);
+                emitter.onComplete();
+            } catch (Exception e) {
+                emitter.onError(e);
+            }
+        });
+    }
+
+    protected Observable<Document> post(String path, Map<String, String> data) {
+        return Observable.create(emitter -> {
+            try {
+                Connection connection = Jsoup.connect(Constant.BASE_URL + path)
+                        .method(Connection.Method.POST)
+                        .cookies(CookieHelper.getCookie());
+                if (data != null) {
+                    connection.data(data);
+                }
+                Connection.Response response = connection.execute();
                 CookieHelper.save(response.cookies());
                 Document document = response.parse();
                 emitter.onNext(document);
