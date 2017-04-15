@@ -1,11 +1,11 @@
-package com.fanhl.hbookerauthor.io.rest;
+package com.fanhl.hbookerauthor.io.retrofit;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.fanhl.hbookerauthor.common.Constant;
-import com.fanhl.hbookerauthor.io.rest.service.AccountService;
-import com.fanhl.hbookerauthor.io.rest.service.BookService;
+import com.fanhl.hbookerauthor.io.retrofit.service.AccountService;
+import com.fanhl.hbookerauthor.io.retrofit.service.BookService;
 import com.fanhl.hbookerauthor.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,8 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by fanhl on 2017/4/6.
  */
-public class HBookerClient {
-    public static final String TAG = HBookerClient.class.getSimpleName();
+public class RetrofitClient {
+    public static final String TAG = RetrofitClient.class.getSimpleName();
 
     private final Retrofit retrofit;
 
@@ -37,10 +37,10 @@ public class HBookerClient {
 
     List<Cookie> cookies = new ArrayList<>();
 
-    public HBookerClient(Context context) {
+    public RetrofitClient(Context context) {
         retrofit = new Retrofit.Builder()
                 .client(getOkHttpClient(context))
-                .baseUrl(Constant.HTTP_SERVER_URL)
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(getConverterFactory())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -54,7 +54,7 @@ public class HBookerClient {
                     Request request = chain.request();
                     request = request.newBuilder()
 //                            .addHeader("cookie", RxSP.getToken())
-                            .addHeader("cookie", CookieHelper.get())
+//                            .addHeader("cookie", CookieHelper.get())
                             .build();
                     Log.d(TAG, "request Cookie:" + request.header("cookie"));
                     return chain.proceed(request);
@@ -65,7 +65,7 @@ public class HBookerClient {
 
                     String cookie = response.header("Set-Cookie");
                     Log.d(TAG, "response Set-Cookie:" + cookie);
-                    CookieHelper.set(cookie);
+//                    CookieHelper.set(cookie);
 
 //                    RxSP.setToken(cookie);
                     return response;
@@ -73,7 +73,7 @@ public class HBookerClient {
         builder.cookieJar(new CookieJar() {
             @Override
             public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                HBookerClient.this.cookies.addAll(cookies);
+                RetrofitClient.this.cookies.addAll(cookies);
             }
 
             @Override

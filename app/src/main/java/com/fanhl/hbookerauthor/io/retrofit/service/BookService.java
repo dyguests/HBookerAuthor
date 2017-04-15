@@ -1,4 +1,4 @@
-package com.fanhl.hbookerauthor.io.rest.service;
+package com.fanhl.hbookerauthor.io.retrofit.service;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;

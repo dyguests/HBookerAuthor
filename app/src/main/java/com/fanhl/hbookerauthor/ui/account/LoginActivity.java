@@ -8,18 +8,13 @@ import android.widget.Button;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.common.Local;
-import com.fanhl.hbookerauthor.io.rest.CookieHelper;
-import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
+import com.fanhl.hbookerauthor.io.retrofit.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
 import com.fanhl.hbookerauthor.ui.main.MainActivity;
 import com.fanhl.hbookerauthor.util.Log;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -84,22 +79,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(LoginForm loginForm) {
-        Observable
-                .create((ObservableOnSubscribe<Document>) emitter -> {
-                    try {
-                        Connection.Response response = Jsoup.connect("http://author.hbooker.com/login/doLogin")
-                                .method(Connection.Method.POST)
-                                .data("email", loginForm.getEmail())
-                                .data("passwd", loginForm.getPassword())
-                                .execute();
-                        CookieHelper.save(response.cookies());
-                        Document document = response.parse();
-                        emitter.onNext(document);
-                        emitter.onComplete();
-                    } catch (Exception e) {
-                        emitter.onError(e);
-                    }
-                })
+        getApp().getClient().getAccountService()
+                .login(loginForm)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Document>() {

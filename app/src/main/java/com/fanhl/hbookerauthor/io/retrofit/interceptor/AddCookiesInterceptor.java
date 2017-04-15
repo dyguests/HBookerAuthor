@@ -1,4 +1,4 @@
-package com.fanhl.hbookerauthor.io.rest.interceptor;
+package com.fanhl.hbookerauthor.io.retrofit.interceptor;
 
 import android.content.Context;
 import android.content.SharedPreferences;

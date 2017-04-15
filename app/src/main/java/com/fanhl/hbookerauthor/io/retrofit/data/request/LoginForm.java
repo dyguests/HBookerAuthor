@@ -1,4 +1,4 @@
-package com.fanhl.hbookerauthor.io.rest.data.request;
+package com.fanhl.hbookerauthor.io.retrofit.data.request;
 
 /**
  * Created by fanhl on 2017/4/7.

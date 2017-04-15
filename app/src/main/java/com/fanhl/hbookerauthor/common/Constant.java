@@ -5,5 +5,5 @@ package com.fanhl.hbookerauthor.common;
  */
 
 public class Constant {
-    public final static String HTTP_SERVER_URL = "http://author.hbooker.com";
+    public final static String BASE_URL = "http://author.hbooker.com";
 }

@@ -1,6 +1,6 @@
-package com.fanhl.hbookerauthor.io.rest.service;
+package com.fanhl.hbookerauthor.io.retrofit.service;
 
-import com.fanhl.hbookerauthor.io.rest.data.request.LoginForm;
+import com.fanhl.hbookerauthor.io.retrofit.data.request.LoginForm;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
