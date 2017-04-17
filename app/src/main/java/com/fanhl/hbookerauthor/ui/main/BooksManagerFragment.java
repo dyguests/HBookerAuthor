@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
+import com.fanhl.hbookerauthor.ui.book.BookActivity;
 import com.fanhl.hbookerauthor.ui.common.BaseFragment;
 import com.fanhl.hbookerauthor.ui.main.adapter.BooksManagerAdapter;
 import com.fanhl.hbookerauthor.ui.main.widget.BookOperationsDialogFragment;
@@ -64,6 +65,10 @@ public class BooksManagerFragment extends BaseFragment {
         adapter = new BooksManagerAdapter();
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener((position, holder) -> {
+            Book data = (Book) ((BooksManagerAdapter.ViewHolder) holder).getData();
+            BookActivity.launch(getContext(),data);
+        });
         adapter.setOnItemLongClickListener((position, holder) -> {
             Book data = (Book) ((BooksManagerAdapter.ViewHolder) holder).getData();
             BookOperationsDialogFragment.newInstance(data).show(getChildFragmentManager(), BookOperationsDialogFragment.TAG);
