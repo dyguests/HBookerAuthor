@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HBookerAuthor</string>
+    <string name="title_author">作者信息</string>
+    <string name="title_books">作品管理</string>
+    <string name="title_home">首页</string>
+    <string name="title_interaction">读者互动</string>
+    <string name="title_wallet">作者钱包</string>
+    <string name="tag">标签</string>
+    <string name="title_activity_book">作品</string>
+    <string name="login">登录</string>
+    <string name="hint_no_title">没找到标题</string>
+    <string name="hint_password">请输入密码</string>
+    <string name="action_settings">设置</string>
+    <string name="hint_email">请输入邮箱</string>
+</resources>
