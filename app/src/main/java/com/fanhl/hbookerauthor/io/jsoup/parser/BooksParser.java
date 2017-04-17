@@ -1,6 +1,8 @@
 package com.fanhl.hbookerauthor.io.jsoup.parser;
 
 import com.fanhl.hbookerauthor.data.Book;
+import com.fanhl.hbookerauthor.data.Tag;
+import com.fanhl.hbookerauthor.io.jsoup.response.BookSettingResponse;
 import com.fanhl.hbookerauthor.util.DateUtil;
 
 import org.jsoup.nodes.Document;
@@ -116,5 +118,20 @@ public class BooksParser {
     private static int getCollect(Element cover) {
         String collectStr = cover.select("span.collect").get(0).html();
         return Integer.valueOf(collectStr.split(" ")[1]);
+    }
+
+    public static BookSettingResponse book_info(Document document) throws IOException {
+        BookSettingResponse bookSettingResponse = new BookSettingResponse();
+        List<Tag> myTags = new ArrayList<>();
+
+        Elements inputEle = document.select("div#myTags").get(0).select("input");
+        for (Element element : inputEle) {
+            String tag = element.attr("value");
+            myTags.add(new Tag(tag));
+        }
+
+        bookSettingResponse.setMyTags(myTags);
+
+        return bookSettingResponse;
     }
 }

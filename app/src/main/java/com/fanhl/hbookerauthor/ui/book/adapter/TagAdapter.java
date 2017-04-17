@@ -9,6 +9,8 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Tag;
 import com.fanhl.hbookerauthor.ui.common.ListAdapter;
 
+import java.util.List;
+
 /**
  * Created by fanhl on 2017/4/17.
  */
@@ -36,6 +38,24 @@ public class TagAdapter extends ListAdapter<TagAdapter.ViewHolder, Tag> {
                 return new TagAdapter.AddViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book_tag_add, parent, false));
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public void replaceItems(List<Tag> items) {
+        int oldSize = list.size() + 1;
+        list.clear();
+        list.addAll(items);
+        int newSize = list.size() + 1;
+
+        if (newSize == oldSize) {
+            notifyItemRangeChanged(0, oldSize);
+        } else if (newSize > oldSize) {
+            notifyItemRangeChanged(0, oldSize);
+            notifyItemRangeInserted(oldSize, newSize - oldSize);
+        } else {
+            notifyItemRangeChanged(0, newSize);
+            notifyItemRangeRemoved(newSize, oldSize - newSize);
         }
     }
 
