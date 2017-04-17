@@ -7,11 +7,21 @@ import com.fanhl.hbookerauthor.io.jsoup.service.BookService;
  * Created by fanhl on 2017/4/15.
  */
 public class JsoupClient {
+
+    private AccountService accountService;
+    private BookService bookService;
+
     public AccountService getAccountService() {
-        return new AccountService();
+        if (accountService == null) {
+            accountService = new AccountService();
+        }
+        return accountService;
     }
 
     public BookService getBookService() {
-        return null;
+        if (bookService == null) {
+            bookService = new BookService();
+        }
+        return bookService;
     }
 }
