@@ -15,7 +15,7 @@ import com.fanhl.hbookerauthor.data.Book;
  * 作品页面
  */
 public class BookActivity extends AppCompatActivity {
-
+    public static final String TAG = BookActivity.class.getSimpleName();
     public static final String EXTRA_DATA = "EXTRA_DATA";
 
     private Book data;
@@ -44,8 +44,6 @@ public class BookActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());
-
-//        new RecyclerView().setLayoutManager(new StaggeredGridLayoutManager());
     }
 
     private void initData() {
