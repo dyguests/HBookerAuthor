@@ -7,6 +7,13 @@ package com.fanhl.hbookerauthor.data;
 public class Tag {
     private String value;
 
+    public Tag() {
+    }
+
+    public Tag(String value) {
+        this.value = value;
+    }
+
     public String getValue() {
         return value;
     }

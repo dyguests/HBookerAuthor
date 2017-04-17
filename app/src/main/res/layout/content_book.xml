@@ -36,9 +36,7 @@
                     android:layout_marginTop="8dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
-                    android:orientation="vertical"
                     app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
-                    app:spanCount="4"
                     tools:listitem="@layout/item_book_tag">
 
                 </android.support.v7.widget.RecyclerView>

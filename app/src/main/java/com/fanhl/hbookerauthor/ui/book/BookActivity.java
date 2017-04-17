@@ -13,6 +13,10 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.data.Tag;
 import com.fanhl.hbookerauthor.ui.book.adapter.TagAdapter;
+import com.google.android.flexbox.FlexboxLayoutManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作品页面
@@ -40,6 +44,7 @@ public class BookActivity extends AppCompatActivity {
 
         assignViews();
         initData();
+        refreshData();
     }
 
     private void assignViews() {
@@ -59,6 +64,7 @@ public class BookActivity extends AppCompatActivity {
 
         tagAdapter = new TagAdapter();
         tagRecyclerView.setAdapter(tagAdapter);
+        tagRecyclerView.setLayoutManager(new FlexboxLayoutManager());
 
         tagAdapter.setOnItemClickListener((position, holder) -> {
             TagAdapter.ViewHolder tagHolder = (TagAdapter.ViewHolder) holder;
@@ -69,6 +75,14 @@ public class BookActivity extends AppCompatActivity {
                 showAddTagDialog();
             }
         });
+    }
+
+    private void refreshData() {
+        List<Tag> list = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            list.add(new Tag("Tag" + i));
+        }
+        tagAdapter.replaceItems(list);
     }
 
     private void showAddTagDialog() {

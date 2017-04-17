@@ -3,6 +3,7 @@ package com.fanhl.hbookerauthor.ui.book.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Tag;
@@ -54,7 +55,11 @@ public class TagAdapter extends ListAdapter<TagAdapter.ViewHolder, Tag> {
             super(itemView);
         }
 
-
+        @Override
+        public void bind(Object data) {
+            super.bind(data);
+            ((TextView) itemView).setText(((Tag) data).getValue());
+        }
     }
 
     public class AddViewHolder extends TagAdapter.ViewHolder {

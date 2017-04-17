@@ -19,7 +19,11 @@ public abstract class ListAdapter<CVH extends ListAdapter.ViewHolder, ITEM> exte
     @Override
     public void onBindViewHolder(CVH holder, int position) {
         super.onBindViewHolder(holder, position);
-        holder.bind(list.get(position));
+        if (position < list.size()) {
+            holder.bind(list.get(position));
+        } else {
+            holder.bind(null);
+        }
     }
 
     @Override
