@@ -7,7 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.widget.Button;
 
 import com.fanhl.hbookerauthor.R;
-import com.fanhl.hbookerauthor.common.Local2;
+import com.fanhl.hbookerauthor.common.Local;
 import com.fanhl.hbookerauthor.io.retrofit.data.request.LoginForm;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
 import com.fanhl.hbookerauthor.ui.main.MainActivity;
@@ -49,8 +49,8 @@ public class LoginActivity extends BaseActivity {
 
     private void initData() {
         // FIXME: 2017/4/7 TEST
-        emailEt.setText(Local2.email);
-        passwordEt.setText(Local2.password);
+        emailEt.setText(Local.email);
+        passwordEt.setText(Local.password);
     }
 
     private void preLogin() {
