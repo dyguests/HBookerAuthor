@@ -61,8 +61,17 @@ public class BookActivity extends AppCompatActivity {
         tagRecyclerView.setAdapter(tagAdapter);
 
         tagAdapter.setOnItemClickListener((position, holder) -> {
-            Tag tag = (Tag) ((TagAdapter.ViewHolder) holder).getData();
-
+            TagAdapter.ViewHolder tagHolder = (TagAdapter.ViewHolder) holder;
+            if (tagHolder instanceof TagAdapter.NormalViewHolder) {
+                Tag tag = (Tag) tagHolder.getData();
+                // FIXME: 2017/4/17
+            } else if (tagHolder instanceof TagAdapter.AddViewHolder) {
+                showAddTagDialog();
+            }
         });
+    }
+
+    private void showAddTagDialog() {
+
     }
 }
