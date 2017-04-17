@@ -10,6 +10,7 @@ import java.util.List;
 
 public class BookSettingResponse {
     private List<Tag> myTags;
+    private List<Tag> tags;
 
     public void setMyTags(List<Tag> myTags) {
         this.myTags = myTags;
@@ -17,5 +18,13 @@ public class BookSettingResponse {
 
     public List<Tag> getMyTags() {
         return myTags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
     }
 }

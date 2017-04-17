@@ -122,15 +122,22 @@ public class BooksParser {
 
     public static BookSettingResponse book_info(Document document) throws IOException {
         BookSettingResponse bookSettingResponse = new BookSettingResponse();
-        List<Tag> myTags = new ArrayList<>();
 
-        Elements inputEle = document.select("div#myTags").get(0).select("input");
-        for (Element element : inputEle) {
+        List<Tag> myTags = new ArrayList<>();
+        Elements myTagsEle = document.select("div#myTags").get(0).select("input");
+        for (Element element : myTagsEle) {
             String tag = element.attr("value");
             myTags.add(new Tag(tag));
         }
+        List<Tag> tags = new ArrayList<>();
+        Elements tagsEle = document.select("div.default-tag").get(0).select("a");
+        for (Element element : tagsEle) {
+            String tag = element.attr("value");
+            tags.add(new Tag(tag));
+        }
 
         bookSettingResponse.setMyTags(myTags);
+        bookSettingResponse.setTags(tags);
 
         return bookSettingResponse;
     }
