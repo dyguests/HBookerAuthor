@@ -28,6 +28,20 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tag"
                     android:textColor="@color/primary_text"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/tagRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
+                    app:spanCount="4"
+                    tools:listitem="@layout/item_book_tag">
+
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
