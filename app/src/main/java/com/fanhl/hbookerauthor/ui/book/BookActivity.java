@@ -15,6 +15,7 @@ import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.data.Tag;
 import com.fanhl.hbookerauthor.io.jsoup.response.BookSettingResponse;
 import com.fanhl.hbookerauthor.ui.book.adapter.TagAdapter;
+import com.fanhl.hbookerauthor.ui.book.widget.TagPickerDialogFragment;
 import com.fanhl.hbookerauthor.ui.common.BaseActivity;
 import com.fanhl.hbookerauthor.util.Log;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -78,6 +79,7 @@ public class BookActivity extends BaseActivity {
 
         tagRecyclerView = ((RecyclerView) findViewById(R.id.tagRecyclerView));
         tagRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        tagRecyclerView.setLayoutManager(new FlexboxLayoutManager());
     }
 
     private void initData() {
@@ -85,7 +87,6 @@ public class BookActivity extends BaseActivity {
 
         tagAdapter = new TagAdapter();
         tagRecyclerView.setAdapter(tagAdapter);
-        tagRecyclerView.setLayoutManager(new FlexboxLayoutManager());
 
         tagAdapter.setOnItemClickListener((position, holder) -> {
             TagAdapter.ViewHolder tagHolder = (TagAdapter.ViewHolder) holder;
@@ -140,6 +141,7 @@ public class BookActivity extends BaseActivity {
     }
 
     private void showAddTagDialog() {
-
+        TagPickerDialogFragment.newInstance(bookSettingResponse.getTags(), bookSettingResponse.getMyTags())
+                .show(getSupportFragmentManager(), TagPickerDialogFragment.TAG);
     }
 }

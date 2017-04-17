@@ -4,17 +4,14 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:padding="4dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:nestedScrollingEnabled="false"
-        android:orientation="vertical"
-        app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
-        app:spanCount="4"
         tools:listitem="@layout/item_book_tag_add"/>
+
 </LinearLayout>

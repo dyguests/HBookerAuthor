@@ -5,20 +5,23 @@ package com.fanhl.hbookerauthor.data;
  */
 
 public class Tag {
-    private String value;
+    private final String value;
+    private final boolean isDefault;
 
     public Tag() {
+        this(null);
     }
 
     public Tag(String value) {
+        this(value, false);
+    }
+
+    public Tag(String value, boolean isDefault) {
         this.value = value;
+        this.isDefault = isDefault;
     }
 
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 }

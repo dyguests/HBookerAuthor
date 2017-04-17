@@ -9,7 +9,9 @@ import java.util.List;
  */
 
 public class BookSettingResponse {
+
     private List<Tag> myTags;
+    /** 所有默认可选的tags */
     private List<Tag> tags;
 
     public void setMyTags(List<Tag> myTags) {
