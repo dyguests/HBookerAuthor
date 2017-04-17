@@ -78,6 +78,8 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void refreshData() {
+
+
         List<Tag> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             list.add(new Tag("Tag" + i));
