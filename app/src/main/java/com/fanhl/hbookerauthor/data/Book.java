@@ -93,10 +93,16 @@ public class Book implements Parcelable {
 
     /**
      * 卷（包含很多章）
+     * 别名 division
      * Created by fanhl on 2017/4/18.
      */
     public static class Volume implements Parcelable {
+        /** division */
+        private String id;
+        /** 章节数 */
+        private int total;
         private List<Chapter> chapters;
+        private String title;
 
         public List<Chapter> getChapters() {
             return chapters;
@@ -134,7 +140,32 @@ public class Book implements Parcelable {
                 return new Volume[size];
             }
         };
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
     }
+
     public static class Chapter implements Parcelable {
 
 

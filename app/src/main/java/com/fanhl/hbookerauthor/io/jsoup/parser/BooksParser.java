@@ -142,7 +142,30 @@ public class BooksParser {
         return bookSettingResponse;
     }
 
-    public static Book view_chapter_info(Document document) {
-        return null;
+    public static List<Book.Volume> view_chapter_info(Document document) {
+        List<Book.Volume> volumes = new ArrayList<>();
+
+        Elements sidebarEles = document.select("div#sidebar");// FIXME: 2017/4/18 这里有问题
+        for (Element sidebarEle : sidebarEles) {
+            Book.Volume volume = new Book.Volume();
+
+            Element aEle = sidebarEle.select("a.division_show").get(0);
+            String division = aEle.attr("division");
+            volume.setId(division);
+            String titleWrapStr = aEle.html();
+            int i1 = titleWrapStr.indexOf("<span");
+            String title = titleWrapStr.substring(0, i1);
+            volume.setTitle(title);
+            //共2章
+            String totalWrapStr = aEle.select("span").get(0).text();
+            String totalStr = totalWrapStr.replaceAll("[共|章]", "");
+            int total = Integer.valueOf(totalStr);
+            volume.setTotal(total);
+
+
+
+            volumes.add(volume);
+        }
+        return volumes;
     }
 }

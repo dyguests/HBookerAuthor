@@ -11,6 +11,8 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 import com.fanhl.hbookerauthor.ui.common.BaseFragment;
 
+import java.util.List;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -44,7 +46,7 @@ public class ChaptersFragment extends BaseFragment {
     }
 
     private void assignViews(View view) {
-
+// FIXME: 2017/4/18 see !!!!!!!!!StickyDemo project!!!!!!!!!
     }
 
     private void initData() {
@@ -52,18 +54,18 @@ public class ChaptersFragment extends BaseFragment {
     }
 
     private void refreshData() {
-       getApp().getClient().getBookService()
+        getApp().getClient().getBookService()
                 .view_chapter_info(data.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Book>() {
+                .subscribe(new Observer<List<Book.Volume>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Book book) {
+                    public void onNext(List<Book.Volume> book) {
 
                     }
 
