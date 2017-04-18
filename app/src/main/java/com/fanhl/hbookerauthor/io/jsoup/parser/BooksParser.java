@@ -133,12 +133,16 @@ public class BooksParser {
         Elements tagsEle = document.select("div.default-tag").get(0).select("a");
         for (Element element : tagsEle) {
             String tag = element.attr("value");
-            tags.add(new Tag(tag,true));
+            tags.add(new Tag(tag, true));
         }
 
         bookSettingResponse.setMyTags(myTags);
         bookSettingResponse.setTags(tags);
 
         return bookSettingResponse;
+    }
+
+    public static Book view_chapter_info(Document document) {
+        return null;
     }
 }

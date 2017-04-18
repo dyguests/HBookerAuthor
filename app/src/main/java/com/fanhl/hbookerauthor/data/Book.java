@@ -4,11 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by fanhl on 2017/4/11.
  */
 public class Book implements Parcelable {
+    //基本信息
+
     private String id;
     /** 封面 url */
     private String cover;
@@ -19,6 +22,10 @@ public class Book implements Parcelable {
     private int wordCount;
     private Chapter latestChapter;
     private Status status;
+
+    //详细信息
+
+    private List<Volume> volumeList;
 
     public void setId(String id) {
         this.id = id;
@@ -76,6 +83,58 @@ public class Book implements Parcelable {
         return latestChapter;
     }
 
+    public List<Volume> getVolumeList() {
+        return volumeList;
+    }
+
+    public void setVolumeList(List<Volume> volumeList) {
+        this.volumeList = volumeList;
+    }
+
+    /**
+     * 卷（包含很多章）
+     * Created by fanhl on 2017/4/18.
+     */
+    public static class Volume implements Parcelable {
+        private List<Chapter> chapters;
+
+        public List<Chapter> getChapters() {
+            return chapters;
+        }
+
+        public void setChapters(List<Chapter> chapters) {
+            this.chapters = chapters;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeTypedList(this.chapters);
+        }
+
+        public Volume() {
+        }
+
+        protected Volume(Parcel in) {
+            this.chapters = in.createTypedArrayList(Chapter.CREATOR);
+        }
+
+        public static final Creator<Volume> CREATOR = new Creator<Volume>() {
+            @Override
+            public Volume createFromParcel(Parcel source) {
+                return new Volume(source);
+            }
+
+            @Override
+            public Volume[] newArray(int size) {
+                return new Volume[size];
+            }
+        };
+    }
     public static class Chapter implements Parcelable {
 
 
@@ -145,6 +204,9 @@ public class Book implements Parcelable {
         }
     }
 
+    public Book() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -159,9 +221,7 @@ public class Book implements Parcelable {
         dest.writeInt(this.wordCount);
         dest.writeParcelable(this.latestChapter, flags);
         dest.writeInt(this.status == null ? -1 : this.status.ordinal());
-    }
-
-    public Book() {
+        dest.writeTypedList(this.volumeList);
     }
 
     protected Book(Parcel in) {
@@ -173,9 +233,10 @@ public class Book implements Parcelable {
         this.latestChapter = in.readParcelable(Chapter.class.getClassLoader());
         int tmpStatus = in.readInt();
         this.status = tmpStatus == -1 ? null : Status.values()[tmpStatus];
+        this.volumeList = in.createTypedArrayList(Volume.CREATOR);
     }
 
-    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
         @Override
         public Book createFromParcel(Parcel source) {
             return new Book(source);

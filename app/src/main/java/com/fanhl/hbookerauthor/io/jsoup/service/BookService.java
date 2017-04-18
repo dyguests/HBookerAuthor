@@ -20,4 +20,8 @@ public class BookService extends BaseSerivce {
     public Observable<BookSettingResponse> book_info(String bookId) {
         return get("/book_manage/mod_book_info?book_id=" + bookId).map(BooksParser::book_info);
     }
+
+    public Observable<Book> view_chapter_info(String bookId) {
+        return get("/book_manage/view_chapter_info?book_id=" + bookId).map(BooksParser::view_chapter_info);
+    }
 }

@@ -1,23 +1,29 @@
 package com.fanhl.hbookerauthor.ui.book;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
+import com.fanhl.hbookerauthor.ui.common.BaseFragment;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 章节列表
  * Created by fanhl on 2017/4/18.
  */
-public class ChaptersFragment extends Fragment {
+public class ChaptersFragment extends BaseFragment {
     private Book data;
 
-    public static ChaptersFragment newInstance(Book data) {
+    public static ChaptersFragment newInstance(@NonNull Book data) {
 
         Bundle args = new Bundle();
 
@@ -46,6 +52,30 @@ public class ChaptersFragment extends Fragment {
     }
 
     private void refreshData() {
+       getApp().getClient().getBookService()
+                .view_chapter_info(data.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Book>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Book book) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }
