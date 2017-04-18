@@ -85,16 +85,14 @@ public class BookActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_settings:
+                return true;
         }
-
+        
         return super.onOptionsItemSelected(item);
     }
 
@@ -149,10 +147,8 @@ public class BookActivity extends AppCompatActivity {
                 case 0:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 1:
-                    return PlaceholderFragment.newInstance(position + 1);
-                case 2:
                     return ChaptersFragment.newInstance(data);
-                case 3:
+                case 2:
                     return PlaceholderFragment.newInstance(position + 1);
             }
             return null;
@@ -161,20 +157,18 @@ public class BookActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "作品设置";
                 case 1:
-                    return "SECTION 2";
+                    return "查看章节";
                 case 2:
-                    return "SECTION 3";
-                case 3:
-                    return "SECTION 4";
+                    return "草稿箱";
             }
             return null;
         }

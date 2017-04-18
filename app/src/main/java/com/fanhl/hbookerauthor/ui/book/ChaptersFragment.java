@@ -11,9 +11,9 @@ import com.fanhl.hbookerauthor.R;
 import com.fanhl.hbookerauthor.data.Book;
 
 /**
+ * 章节列表
  * Created by fanhl on 2017/4/18.
  */
-
 public class ChaptersFragment extends Fragment {
     private Book data;
 
