@@ -31,9 +31,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.book.BookActivity"
+            android:name=".ui.book.Book2Activity"
             android:label="@string/title_activity_book"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.book.BookActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
