@@ -3,6 +3,7 @@ package com.fanhl.hbookerauthor;
 import android.app.Application;
 
 import com.fanhl.hbookerauthor.io.jsoup.JsoupClient;
+import com.fanhl.hbookerauthor.model.LoginState;
 import com.fanhl.hbookerauthor.util.RxSP;
 
 /**
@@ -11,6 +12,8 @@ import com.fanhl.hbookerauthor.util.RxSP;
 
 public class App extends Application {
     private JsoupClient client;
+
+    private LoginState loginState = LoginState.NotLogin;
 
     @Override
     public void onCreate() {
@@ -24,5 +27,9 @@ public class App extends Application {
             client = new JsoupClient();
         }
         return client;
+    }
+
+    public boolean isLogged() {
+        return loginState == LoginState.Logged;
     }
 }
