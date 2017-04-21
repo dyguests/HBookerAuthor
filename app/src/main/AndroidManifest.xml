@@ -11,14 +11,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.guide.SplashActivity">
+        <activity
+            android:name=".ui.guide.SplashActivity"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.account.LoginActivity"/>
         <activity
             android:name=".ui.main.MainActivity"
@@ -26,6 +27,11 @@
         <activity
             android:name=".ui.book.BookActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.guide.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme"/>
     </application>
 
 </manifest>
