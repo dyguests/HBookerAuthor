@@ -16,6 +16,7 @@ import com.fanhl.hbookerauthor.ui.common.BaseFragment;
 import com.fanhl.hbookerauthor.ui.main.adapter.BooksManagerAdapter;
 import com.fanhl.hbookerauthor.ui.main.widget.BookOperationsDialogFragment;
 import com.fanhl.hbookerauthor.util.Log;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
@@ -67,11 +68,13 @@ public class BooksManagerFragment extends BaseFragment {
 
         adapter.setOnItemClickListener((position, holder) -> {
             Book data = (Book) ((BooksManagerAdapter.ViewHolder) holder).getData();
-            BookActivity.launch(getContext(),data);
+            BookActivity.launch(getContext(), data);
+            MobclickAgent.onEvent(getContext(), "Book");
         });
         adapter.setOnItemLongClickListener((position, holder) -> {
             Book data = (Book) ((BooksManagerAdapter.ViewHolder) holder).getData();
             BookOperationsDialogFragment.newInstance(data).show(getChildFragmentManager(), BookOperationsDialogFragment.TAG);
+            MobclickAgent.onEvent(getContext(), "BookOperations");
             return true;
         });
     }
