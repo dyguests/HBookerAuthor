@@ -20,7 +20,7 @@
             android:value="5910392ca3251166fa001821"/>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="official"/>
+            android:value="${UMENG_CHANNEL_VALUE}"/>
 
         <activity android:name=".ui.guide.SplashActivity">
             <intent-filter>

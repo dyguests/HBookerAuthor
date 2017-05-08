@@ -13,6 +13,9 @@ android {
         jackOptions {
             enabled true
         }
+
+        // 默认渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "official"]
     }
     buildTypes {
         release {
