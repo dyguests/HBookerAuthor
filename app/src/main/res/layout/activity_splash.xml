@@ -5,5 +5,5 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:scaleType="centerCrop"
-           app:srcCompat="@drawable/bg_splash"
+           app:srcCompat="@drawable/ic_add_small"
            tools:context="com.fanhl.hbookerauthor.ui.guide.SplashActivity"/>
